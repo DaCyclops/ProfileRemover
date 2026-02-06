@@ -95,6 +95,7 @@ ProfileRemover.ps1 -All -Days 180 -Exclude user1,*SQL*,*joseph
 Created by skoliver1
 https://github.com/skoliver1/ProfileRemover
 
+2026.02.06 - fixed: -Days only deleting single account
 2024.04.26 - fixed: known local accounts were being mis-identified as domain accounts when running against $env:ComputerName
                 - fixed: with -NonInteractive, invalid accounts were not being deleted
                 - parsing accounts now excludes non-domain account SID types. e.g. IIS apppool accounts
@@ -459,7 +460,7 @@ If ( $Days ) {
                 }
             }
         } else {
-            $OldList += $Account
+            $OldList += $OldAccounts
         }
     } else {
         Write-Host "No profiles were found that are older than $Days days." -ForegroundColor Green
